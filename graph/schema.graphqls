@@ -5,18 +5,34 @@ type Link {
     user: User!
 }
 
+type Task {
+    id: ID!
+    title: String!
+    content: String!
+    creater: User!
+    editor: User!
+    status: Status!
+}
+
 type User {
     id: ID!
     name: String!
+    role: Role! 
 }
 
 type Query {
     links: [Link!]!
+    Task: [Task!]!
 }
 
 input NewLink {
     title: String!
     address: String!
+}
+
+input NewTask {
+    title: String!
+    content: String!
 }
 
 input RefreshTokenInput{
@@ -35,8 +51,21 @@ input Login {
 
 type Mutation {
     createLink(input: NewLink!): Link!
+    createTask(input: NewTask!): Task!
     createUser(input: NewUser!): String!
     login(input: Login!): String!
     # we'll talk about this in authentication section
     refreshToken(input: RefreshTokenInput!): String!
+}
+
+enum Status {
+    PENDING
+    PROCESSING
+    COMPLETE
+}
+
+enum Role {
+    ADMIN
+    OWNER
+    EDITOR
 }

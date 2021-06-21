@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS Tasks(
+    ID INT NOT NULL UNIQUE AUTO_INCREMENT,
+    Title VARCHAR (255) ,
+    Content VARCHAR (255) ,
+    CreaterID INT ,
+    EditorID INT ,
+    FOREIGN KEY (CreaterID) REFERENCES Users(ID) ,
+    FOREIGN KEY (EditorID) REFERENCES Users(ID) ,
+    PRIMARY KEY (ID)
+)

@@ -2,6 +2,12 @@
 
 package model
 
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
 type Link struct {
 	ID      string `json:"id"`
 	Title   string `json:"title"`
@@ -19,6 +25,11 @@ type NewLink struct {
 	Address string `json:"address"`
 }
 
+type NewTask struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
+}
+
 type NewUser struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -28,7 +39,103 @@ type RefreshTokenInput struct {
 	Token string `json:"token"`
 }
 
+type Task struct {
+	ID      string `json:"id"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	Creater *User  `json:"creater"`
+	Editor  *User  `json:"editor"`
+	Status  Status `json:"status"`
+}
+
 type User struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
+	Role Role   `json:"role"`
+}
+
+type Role string
+
+const (
+	RoleAdmin  Role = "ADMIN"
+	RoleOwner  Role = "OWNER"
+	RoleEditor Role = "EDITOR"
+)
+
+var AllRole = []Role{
+	RoleAdmin,
+	RoleOwner,
+	RoleEditor,
+}
+
+func (e Role) IsValid() bool {
+	switch e {
+	case RoleAdmin, RoleOwner, RoleEditor:
+		return true
+	}
+	return false
+}
+
+func (e Role) String() string {
+	return string(e)
+}
+
+func (e *Role) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Role(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Role", str)
+	}
+	return nil
+}
+
+func (e Role) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type Status string
+
+const (
+	StatusPending    Status = "PENDING"
+	StatusProcessing Status = "PROCESSING"
+	StatusComplete   Status = "COMPLETE"
+)
+
+var AllStatus = []Status{
+	StatusPending,
+	StatusProcessing,
+	StatusComplete,
+}
+
+func (e Status) IsValid() bool {
+	switch e {
+	case StatusPending, StatusProcessing, StatusComplete:
+		return true
+	}
+	return false
+}
+
+func (e Status) String() string {
+	return string(e)
+}
+
+func (e *Status) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Status(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Status", str)
+	}
+	return nil
+}
+
+func (e Status) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }

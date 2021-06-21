@@ -12,6 +12,7 @@ import (
 	"github.com/glyphack/graphlq-golang/graph/model"
 	"github.com/glyphack/graphlq-golang/internal/auth"
 	"github.com/glyphack/graphlq-golang/internal/links"
+	"github.com/glyphack/graphlq-golang/internal/tasks"
 	"github.com/glyphack/graphlq-golang/internal/users"
 	"github.com/glyphack/graphlq-golang/pkg/jwt"
 )
@@ -31,6 +32,29 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) 
 		Name: user.Username,
 	}
 	return &model.Link{ID: strconv.FormatInt(linkId, 10), Title: link.Title, Address: link.Address, User: grahpqlUser}, nil
+}
+
+func (r *mutationResolver) CreateTask(ctx context.Context, input model.NewTask) (*model.Task, error) {
+	user := auth.ForContext(ctx)
+	if user == nil {
+		return &model.Task{}, fmt.Errorf("access denied")
+	}
+	var task tasks.Task
+	task.Title = input.Title
+	task.Content = input.Content
+	task.Creater = user
+	task.Editor = user
+	task.Status
+	taskId := task.Save()
+	grahpqlCreater := &model.User{
+		ID:   user.ID,
+		Name: user.Username,
+	}
+	grahpqlEditor := &model.User{
+		ID:   user.ID,
+		Name: user.Username,
+	}
+	return &model.Task{ID: strconv.FormatInt(taskId, 10), Title: task.Title, Content: task.Content, Creater: grahpqlCreater, Editor: grahpqlEditor}, nil
 }
 
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
@@ -84,6 +108,10 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 		resultLinks = append(resultLinks, &model.Link{ID: link.ID, Title: link.Title, Address: link.Address, User: grahpqlUser})
 	}
 	return resultLinks, nil
+}
+
+func (r *queryResolver) Task(ctx context.Context) ([]*model.Task, error) {
+	panic(fmt.Errorf("not implemented"))
 }
 
 // Mutation returns generated.MutationResolver implementation.
