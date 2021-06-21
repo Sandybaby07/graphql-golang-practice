@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS Tasks(
     EditorID INT ,
     FOREIGN KEY (CreaterID) REFERENCES Users(ID) ,
     FOREIGN KEY (EditorID) REFERENCES Users(ID) ,
+    Status VARCHAR (10),
     PRIMARY KEY (ID)
 )

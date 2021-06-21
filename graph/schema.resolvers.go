@@ -44,7 +44,7 @@ func (r *mutationResolver) CreateTask(ctx context.Context, input model.NewTask) 
 	task.Content = input.Content
 	task.Creater = user
 	task.Editor = user
-	task.Status
+	task.Status.Status = string(model.StatusPending)
 	taskId := task.Save()
 	grahpqlCreater := &model.User{
 		ID:   user.ID,
@@ -54,7 +54,7 @@ func (r *mutationResolver) CreateTask(ctx context.Context, input model.NewTask) 
 		ID:   user.ID,
 		Name: user.Username,
 	}
-	return &model.Task{ID: strconv.FormatInt(taskId, 10), Title: task.Title, Content: task.Content, Creater: grahpqlCreater, Editor: grahpqlEditor}, nil
+	return &model.Task{ID: strconv.FormatInt(taskId, 10), Title: task.Title, Content: task.Content, Creater: grahpqlCreater, Editor: grahpqlEditor, Status: model.StatusPending}, nil
 }
 
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
@@ -103,7 +103,7 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 	dbLinks = links.GetAll()
 	for _, link := range dbLinks {
 		grahpqlUser := &model.User{
-			Name: link.User.Password,
+			Name: link.User.Username,
 		}
 		resultLinks = append(resultLinks, &model.Link{ID: link.ID, Title: link.Title, Address: link.Address, User: grahpqlUser})
 	}
@@ -111,7 +111,19 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 }
 
 func (r *queryResolver) Task(ctx context.Context) ([]*model.Task, error) {
-	panic(fmt.Errorf("not implemented"))
+	var resultTasks []*model.Task
+	var dbTasks []tasks.Task
+	dbTasks = tasks.GetAll()
+	for _, task := range dbTasks {
+		grahpqlCreater := &model.User{
+			Name: task.Creater.Username,
+		}
+		grahpqlEditor := &model.User{
+			Name: task.Editor.Username,
+		}
+		resultTasks = append(resultTasks, &model.Task{ID: task.ID, Title: task.Title, Content: task.Content, Creater: grahpqlCreater, Editor: grahpqlEditor, Status: model.StatusPending})
+	}
+	return resultTasks, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

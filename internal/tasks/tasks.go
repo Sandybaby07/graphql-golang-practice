@@ -14,17 +14,22 @@ type Task struct {
 	Content string
 	Creater *users.User
 	Editor  *users.User
+	Status  Status
+}
+
+type Status struct {
+	Status string
 }
 
 //#2
 func (task Task) Save() int64 {
 	//#3
-	stmt, err := database.Db.Prepare("INSERT INTO Tasks(Title,Content,CreaterID,EditorID) VALUES(?,?,?,?)")
+	stmt, err := database.Db.Prepare("INSERT INTO Tasks(Title,Content,CreaterID,EditorID,Status) VALUES(?,?,?,?,?)")
 	if err != nil {
 		log.Fatal(err)
 	}
 	//#4
-	res, err := stmt.Exec(task.Title, task.Content, task.Creater.ID, task.Editor.ID)
+	res, err := stmt.Exec(task.Title, task.Content, task.Creater.ID, task.Editor.ID, task.Status.Status)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,7 +43,7 @@ func (task Task) Save() int64 {
 }
 
 func GetAll() []Task {
-	stmt, err := database.Db.Prepare("select T.id, T.title, T.Content, T.CreaterID, T.EditorID, U.Username from Tasks T inner join Users U on T.CreaterID = U.ID")
+	stmt, err := database.Db.Prepare("select T.id, T.title, T.Content, T.CreaterID, T.EditorID, T.Status, U.Username from Tasks T inner join Users U on T.CreaterID = U.ID")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,16 +55,27 @@ func GetAll() []Task {
 	defer rows.Close()
 	var tasks []Task
 	var username string
-	var id string
+	var createrId string
+	var editorId string
+	var status string
 	for rows.Next() {
 		var task Task
-		err := rows.Scan(&task.ID, &task.Title, &task.Content, &id, &username)
+		err := rows.Scan(&task.ID, &task.Title, &task.Content, &createrId, &editorId, &status, &username)
 		if err != nil {
 			log.Fatal(err)
 		}
 		task.Creater = &users.User{
-			ID:       id,
+			ID:       createrId,
 			Username: username,
+			Password: "",
+		}
+		task.Editor = &users.User{
+			ID:       editorId,
+			Username: username,
+			Password: "",
+		}
+		task.Status = Status{
+			Status: status,
 		}
 		tasks = append(tasks, task)
 	}
