@@ -84,3 +84,29 @@ func GetAll() []Task {
 	}
 	return tasks
 }
+
+// delete
+func (task Task) Delete() int64 {
+	// delete sql DELETE FROM Tasks WHERE `ID`=?
+	stmt, err := database.Db.Prepare("DELETE FROM Tasks WHERE `ID` = ? and `CreaterID` = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf(task.ID)
+	//#4
+	res, err := stmt.Exec(task.ID, task.Creater.ID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//#5
+	id, err := res.RowsAffected()
+	if err != nil {
+		log.Fatal("Error:", err.Error())
+	}
+	if id == 0 {
+		log.Print("No data!")
+	} else {
+		log.Print("Row deleted!")
+	}
+	return id
+}

@@ -69,6 +69,18 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	return token, nil
 }
 
+func (r *mutationResolver) DeleteTask(ctx context.Context, input model.DeleteTask) (string, error) {
+	user := auth.ForContext(ctx)
+	if user == nil {
+		return "", fmt.Errorf("access denied")
+	}
+	var deleteTask tasks.Task
+	deleteTask.ID = input.ID
+	deleteTask.Creater = user
+	delete := deleteTask.Delete()
+	return strconv.FormatInt(delete, 10), nil
+}
+
 func (r *mutationResolver) Login(ctx context.Context, input model.Login) (string, error) {
 	var user users.User
 	user.Username = input.Username

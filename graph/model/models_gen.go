@@ -8,6 +8,11 @@ import (
 	"strconv"
 )
 
+type DeleteTask struct {
+	ID        string `json:"id"`
+	CreaterID string `json:"createrID"`
+}
+
 type Link struct {
 	ID      string `json:"id"`
 	Title   string `json:"title"`
