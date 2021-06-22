@@ -24,6 +24,7 @@ type Query {
     links: [Link!]!
     Task: [Task!]!
     User: [User!]!
+    Staff: [User!]!
 }
 
 input NewLink {

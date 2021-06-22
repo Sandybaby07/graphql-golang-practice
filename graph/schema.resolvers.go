@@ -165,11 +165,11 @@ func (r *queryResolver) User(ctx context.Context) ([]*model.User, error) {
 	return resultUsers, nil
 }
 
-func (r *queryResolver) GetStaff(ctx context.Context) ([]*model.User, error) {
+func (r *queryResolver) Staff(ctx context.Context) ([]*model.User, error) {
 	var resultUsers []*model.User
-	var dbUsers []users.User
-	dbUsers = users.GetAll()
-	for _, user := range dbUsers {
+	var dbStaff []users.User
+	dbStaff = users.GetStaff()
+	for _, user := range dbStaff {
 		resultUsers = append(resultUsers, &model.User{ID: user.ID, Name: user.Username, Role: model.Role(user.Role.Role)})
 	}
 	return resultUsers, nil

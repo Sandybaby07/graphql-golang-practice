@@ -62,6 +62,7 @@ type ComplexityRoot struct {
 
 	Query struct {
 		Links func(childComplexity int) int
+		Staff func(childComplexity int) int
 		Task  func(childComplexity int) int
 		User  func(childComplexity int) int
 	}
@@ -95,6 +96,7 @@ type QueryResolver interface {
 	Links(ctx context.Context) ([]*model.Link, error)
 	Task(ctx context.Context) ([]*model.Task, error)
 	User(ctx context.Context) ([]*model.User, error)
+	Staff(ctx context.Context) ([]*model.User, error)
 }
 
 type executableSchema struct {
@@ -230,6 +232,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Links(childComplexity), true
+
+	case "Query.Staff":
+		if e.complexity.Query.Staff == nil {
+			break
+		}
+
+		return e.complexity.Query.Staff(childComplexity), true
 
 	case "Query.Task":
 		if e.complexity.Query.Task == nil {
@@ -398,6 +407,7 @@ type Query {
     links: [Link!]!
     Task: [Task!]!
     User: [User!]!
+    Staff: [User!]!
 }
 
 input NewLink {
@@ -1125,6 +1135,40 @@ func (ec *executionContext) _Query_User(ctx context.Context, field graphql.Colle
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return ec.resolvers.Query().User(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.User)
+	fc.Result = res
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_Staff(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Staff(rctx)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2926,6 +2970,20 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_User(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "Staff":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_Staff(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}

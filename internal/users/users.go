@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/glyphack/graphlq-golang/graph/model"
 	database "github.com/glyphack/graphlq-golang/internal/pkg/db/mysql"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -93,25 +92,35 @@ func GetUsernameById(userId string) (User, error) {
 	return User{ID: userId, Username: username}, nil
 }
 
-//GetUserByRole check if a user exists in database and return the user object.
-func GetUsernameByRole(role model.Role) (User, error) {
-	statement, err := database.Db.Prepare("select Username from Users WHERE Role = ?")
+//GetUserByRole check if a user exists in database and return the user object. select *from Users WHERE Role = ?
+func GetStaff() []User {
+	stmt, err := database.Db.Prepare("select *from Users WHERE Role = 'STAFF'")
 	if err != nil {
 		log.Fatal(err)
 	}
-	row := statement.QueryRow(role)
-
-	var username string
-	var userId string
-	err = row.Scan(&username, &userId, role)
+	defer stmt.Close()
+	rows, err := stmt.Query()
 	if err != nil {
-		if err != sql.ErrNoRows {
-			log.Print(err)
-		}
-		return User{}, err
+		log.Fatal(err)
 	}
-
-	return User{ID: userId, Username: username}, nil
+	defer rows.Close()
+	var users []User
+	var role string
+	for rows.Next() {
+		var user User
+		err := rows.Scan(&user.ID, &user.Username, &role, &role)
+		if err != nil {
+			log.Fatal(err)
+		}
+		user.Role = Role{
+			Role: role,
+		}
+		users = append(users, user)
+	}
+	if err = rows.Err(); err != nil {
+		log.Fatal(err)
+	}
+	return users
 }
 
 //HashPassword hashes given password
