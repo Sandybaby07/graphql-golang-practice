@@ -63,6 +63,7 @@ type ComplexityRoot struct {
 	Query struct {
 		Links func(childComplexity int) int
 		Task  func(childComplexity int) int
+		User  func(childComplexity int) int
 	}
 
 	Task struct {
@@ -93,6 +94,7 @@ type MutationResolver interface {
 type QueryResolver interface {
 	Links(ctx context.Context) ([]*model.Link, error)
 	Task(ctx context.Context) ([]*model.Task, error)
+	User(ctx context.Context) ([]*model.User, error)
 }
 
 type executableSchema struct {
@@ -235,6 +237,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Task(childComplexity), true
+
+	case "Query.User":
+		if e.complexity.Query.User == nil {
+			break
+		}
+
+		return e.complexity.Query.User(childComplexity), true
 
 	case "Task.content":
 		if e.complexity.Task.Content == nil {
@@ -388,6 +397,7 @@ type User {
 type Query {
     links: [Link!]!
     Task: [Task!]!
+    User: [User!]!
 }
 
 input NewLink {
@@ -407,6 +417,7 @@ input RefreshTokenInput{
 input NewUser {
     username: String!
     password: String!
+    role: Role! 
 }
 
 input DeleteTask {
@@ -447,7 +458,7 @@ enum Status {
 
 enum Role {
     ADMIN
-    OWNER
+    STAFF
     EDITOR
 }`, BuiltIn: false},
 }
@@ -1094,6 +1105,40 @@ func (ec *executionContext) _Query_Task(ctx context.Context, field graphql.Colle
 	res := resTmp.([]*model.Task)
 	fc.Result = res
 	return ec.marshalNTask2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTaskᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_User(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().User(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.User)
+	fc.Result = res
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2688,6 +2733,12 @@ func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj inter
 			if err != nil {
 				return it, err
 			}
+		case "role":
+			var err error
+			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRole(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		}
 	}
 
@@ -2861,6 +2912,20 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_Task(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "User":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_User(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -3407,6 +3472,43 @@ func (ec *executionContext) marshalNTask2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑ
 
 func (ec *executionContext) marshalNUser2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
 }
 
 func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {

@@ -61,6 +61,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	var user users.User
 	user.Username = input.Username
 	user.Password = input.Password
+	user.Role.Role = input.Role.String()
 	user.Create()
 	token, err := jwt.GenerateToken(user.Username)
 	if err != nil {
@@ -152,6 +153,26 @@ func (r *queryResolver) Task(ctx context.Context) ([]*model.Task, error) {
 		resultTasks = append(resultTasks, &model.Task{ID: task.ID, Title: task.Title, Content: task.Content, Creater: grahpqlCreater, Editor: grahpqlEditor, Status: model.StatusPending})
 	}
 	return resultTasks, nil
+}
+
+func (r *queryResolver) User(ctx context.Context) ([]*model.User, error) {
+	var resultUsers []*model.User
+	var dbUsers []users.User
+	dbUsers = users.GetAll()
+	for _, user := range dbUsers {
+		resultUsers = append(resultUsers, &model.User{ID: user.ID, Name: user.Username, Role: model.Role(user.Role.Role)})
+	}
+	return resultUsers, nil
+}
+
+func (r *queryResolver) GetStaff(ctx context.Context) ([]*model.User, error) {
+	var resultUsers []*model.User
+	var dbUsers []users.User
+	dbUsers = users.GetAll()
+	for _, user := range dbUsers {
+		resultUsers = append(resultUsers, &model.User{ID: user.ID, Name: user.Username, Role: model.Role(user.Role.Role)})
+	}
+	return resultUsers, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

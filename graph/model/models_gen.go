@@ -47,6 +47,7 @@ type NewTask struct {
 type NewUser struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Role     Role   `json:"role"`
 }
 
 type RefreshTokenInput struct {
@@ -72,19 +73,19 @@ type Role string
 
 const (
 	RoleAdmin  Role = "ADMIN"
-	RoleOwner  Role = "OWNER"
+	RoleStaff  Role = "STAFF"
 	RoleEditor Role = "EDITOR"
 )
 
 var AllRole = []Role{
 	RoleAdmin,
-	RoleOwner,
+	RoleStaff,
 	RoleEditor,
 }
 
 func (e Role) IsValid() bool {
 	switch e {
-	case RoleAdmin, RoleOwner, RoleEditor:
+	case RoleAdmin, RoleStaff, RoleEditor:
 		return true
 	}
 	return false

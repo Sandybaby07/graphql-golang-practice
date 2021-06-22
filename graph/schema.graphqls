@@ -23,6 +23,7 @@ type User {
 type Query {
     links: [Link!]!
     Task: [Task!]!
+    User: [User!]!
 }
 
 input NewLink {
@@ -42,6 +43,7 @@ input RefreshTokenInput{
 input NewUser {
     username: String!
     password: String!
+    role: Role! 
 }
 
 input DeleteTask {
@@ -82,6 +84,6 @@ enum Status {
 
 enum Role {
     ADMIN
-    OWNER
+    STAFF
     EDITOR
 }

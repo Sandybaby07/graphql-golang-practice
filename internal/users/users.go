@@ -2,25 +2,32 @@ package users
 
 import (
 	"database/sql"
-	"github.com/glyphack/graphlq-golang/internal/pkg/db/mysql"
-	"golang.org/x/crypto/bcrypt"
 	"log"
+
+	"github.com/glyphack/graphlq-golang/graph/model"
+	database "github.com/glyphack/graphlq-golang/internal/pkg/db/mysql"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
 	ID       string `json:"id"`
 	Username string `json:"name"`
 	Password string `json:"password"`
+	Role     Role
+}
+
+type Role struct {
+	Role string
 }
 
 func (user *User) Create() {
-	statement, err := database.Db.Prepare("INSERT INTO Users(Username,Password) VALUES(?,?)")
+	statement, err := database.Db.Prepare("INSERT INTO Users(Username,Password,Role) VALUES(?,?,?)")
 	print(statement)
 	if err != nil {
 		log.Fatal(err)
 	}
 	hashedPassword, err := HashPassword(user.Password)
-	_, err = statement.Exec(user.Username, hashedPassword)
+	_, err = statement.Exec(user.Username, hashedPassword, user.Role.Role)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -86,6 +93,27 @@ func GetUsernameById(userId string) (User, error) {
 	return User{ID: userId, Username: username}, nil
 }
 
+//GetUserByRole check if a user exists in database and return the user object.
+func GetUsernameByRole(role model.Role) (User, error) {
+	statement, err := database.Db.Prepare("select Username from Users WHERE Role = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	row := statement.QueryRow(role)
+
+	var username string
+	var userId string
+	err = row.Scan(&username, &userId, role)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			log.Print(err)
+		}
+		return User{}, err
+	}
+
+	return User{ID: userId, Username: username}, nil
+}
+
 //HashPassword hashes given password
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
@@ -96,4 +124,34 @@ func HashPassword(password string) (string, error) {
 func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
+}
+
+func GetAll() []User {
+	stmt, err := database.Db.Prepare("select U.id, U.username, U.Role from Users U")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	rows, err := stmt.Query()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+	var users []User
+	var role string
+	for rows.Next() {
+		var user User
+		err := rows.Scan(&user.ID, &user.Username, &role)
+		if err != nil {
+			log.Fatal(err)
+		}
+		user.Role = Role{
+			Role: role,
+		}
+		users = append(users, user)
+	}
+	if err = rows.Err(); err != nil {
+		log.Fatal(err)
+	}
+	return users
 }
