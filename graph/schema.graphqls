@@ -49,6 +49,15 @@ input DeleteTask {
     createrID: String!
 }
 
+input ModifyTask {
+    id: ID!
+    createrID: String!
+    title: String!
+    content: String!
+    editorID: String!
+    status: Status!
+}
+
 input Login {
     username: String!
     password: String!
@@ -59,6 +68,7 @@ type Mutation {
     createTask(input: NewTask!): Task!
     createUser(input: NewUser!): String!
     deleteTask(input: DeleteTask!): String!
+    modifyTask(input: ModifyTask!): String!
     login(input: Login!): String!
     # we'll talk about this in authentication section
     refreshToken(input: RefreshTokenInput!): String!

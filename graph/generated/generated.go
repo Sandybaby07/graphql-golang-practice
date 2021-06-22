@@ -56,6 +56,7 @@ type ComplexityRoot struct {
 		CreateUser   func(childComplexity int, input model.NewUser) int
 		DeleteTask   func(childComplexity int, input model.DeleteTask) int
 		Login        func(childComplexity int, input model.Login) int
+		ModifyTask   func(childComplexity int, input model.ModifyTask) int
 		RefreshToken func(childComplexity int, input model.RefreshTokenInput) int
 	}
 
@@ -85,6 +86,7 @@ type MutationResolver interface {
 	CreateTask(ctx context.Context, input model.NewTask) (*model.Task, error)
 	CreateUser(ctx context.Context, input model.NewUser) (string, error)
 	DeleteTask(ctx context.Context, input model.DeleteTask) (string, error)
+	ModifyTask(ctx context.Context, input model.ModifyTask) (string, error)
 	Login(ctx context.Context, input model.Login) (string, error)
 	RefreshToken(ctx context.Context, input model.RefreshTokenInput) (string, error)
 }
@@ -195,6 +197,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.Login(childComplexity, args["input"].(model.Login)), true
+
+	case "Mutation.modifyTask":
+		if e.complexity.Mutation.ModifyTask == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_modifyTask_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.ModifyTask(childComplexity, args["input"].(model.ModifyTask)), true
 
 	case "Mutation.refreshToken":
 		if e.complexity.Mutation.RefreshToken == nil {
@@ -400,6 +414,15 @@ input DeleteTask {
     createrID: String!
 }
 
+input ModifyTask {
+    id: ID!
+    createrID: String!
+    title: String!
+    content: String!
+    editorID: String!
+    status: Status!
+}
+
 input Login {
     username: String!
     password: String!
@@ -410,6 +433,7 @@ type Mutation {
     createTask(input: NewTask!): Task!
     createUser(input: NewUser!): String!
     deleteTask(input: DeleteTask!): String!
+    modifyTask(input: ModifyTask!): String!
     login(input: Login!): String!
     # we'll talk about this in authentication section
     refreshToken(input: RefreshTokenInput!): String!
@@ -495,6 +519,20 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	var arg0 model.Login
 	if tmp, ok := rawArgs["input"]; ok {
 		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLogin(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_modifyTask_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.ModifyTask
+	if tmp, ok := rawArgs["input"]; ok {
+		arg0, err = ec.unmarshalNModifyTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐModifyTask(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -851,6 +889,47 @@ func (ec *executionContext) _Mutation_deleteTask(ctx context.Context, field grap
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return ec.resolvers.Mutation().DeleteTask(rctx, args["input"].(model.DeleteTask))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_modifyTask(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Mutation",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_modifyTask_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().ModifyTask(rctx, args["input"].(model.ModifyTask))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2495,6 +2574,54 @@ func (ec *executionContext) unmarshalInputLogin(ctx context.Context, obj interfa
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputModifyTask(ctx context.Context, obj interface{}) (model.ModifyTask, error) {
+	var it model.ModifyTask
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "id":
+			var err error
+			it.ID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createrID":
+			var err error
+			it.CreaterID, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "title":
+			var err error
+			it.Title, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "content":
+			var err error
+			it.Content, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "editorID":
+			var err error
+			it.EditorID, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "status":
+			var err error
+			it.Status, err = ec.unmarshalNStatus2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐStatus(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputNewLink(ctx context.Context, obj interface{}) (model.NewLink, error) {
 	var it model.NewLink
 	var asMap = obj.(map[string]interface{})
@@ -2667,6 +2794,11 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			}
 		case "deleteTask":
 			out.Values[i] = ec._Mutation_deleteTask(ctx, field)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "modifyTask":
+			out.Values[i] = ec._Mutation_modifyTask(ctx, field)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -3168,6 +3300,10 @@ func (ec *executionContext) marshalNLink2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑ
 
 func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
 	return ec.unmarshalInputLogin(ctx, v)
+}
+
+func (ec *executionContext) unmarshalNModifyTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐModifyTask(ctx context.Context, v interface{}) (model.ModifyTask, error) {
+	return ec.unmarshalInputModifyTask(ctx, v)
 }
 
 func (ec *executionContext) unmarshalNNewLink2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewLink(ctx context.Context, v interface{}) (model.NewLink, error) {

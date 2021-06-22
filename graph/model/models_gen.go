@@ -25,6 +25,15 @@ type Login struct {
 	Password string `json:"password"`
 }
 
+type ModifyTask struct {
+	ID        string `json:"id"`
+	CreaterID string `json:"createrID"`
+	Title     string `json:"title"`
+	Content   string `json:"content"`
+	EditorID  string `json:"editorID"`
+	Status    Status `json:"status"`
+}
+
 type NewLink struct {
 	Title   string `json:"title"`
 	Address string `json:"address"`

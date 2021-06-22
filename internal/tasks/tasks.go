@@ -110,3 +110,28 @@ func (task Task) Delete() int64 {
 	}
 	return id
 }
+
+// modify
+func (task Task) Modify() int64 {
+	// update sql
+	stmt, err := database.Db.Prepare("UPDATE Tasks SET `Title` = ?,`content` = ?, `EditorID` = ?, `Status` = ? WHERE `ID` = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	//#4
+	res, err := stmt.Exec(task.Title, task.Content, task.Editor.ID, task.Status.Status, task.ID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//#5
+	id, err := res.RowsAffected()
+	if err != nil {
+		log.Fatal("Error:", err.Error())
+	}
+	if id == 0 {
+		log.Print("No data to update!")
+	} else {
+		log.Print("Row modify")
+	}
+	return id
+}

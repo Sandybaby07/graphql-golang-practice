@@ -81,6 +81,22 @@ func (r *mutationResolver) DeleteTask(ctx context.Context, input model.DeleteTas
 	return strconv.FormatInt(delete, 10), nil
 }
 
+func (r *mutationResolver) ModifyTask(ctx context.Context, input model.ModifyTask) (string, error) {
+	user := auth.ForContext(ctx)
+	if user == nil {
+		return "", fmt.Errorf("access denied")
+	}
+	var modifyTask tasks.Task
+	modifyTask.ID = input.ID
+	modifyTask.Creater = user
+	modifyTask.Title = input.Title
+	modifyTask.Content = input.Content
+	modifyTask.Editor = user
+	modifyTask.Status.Status = input.Status.String()
+	modify := modifyTask.Modify()
+	return strconv.FormatInt(modify, 10), nil
+}
+
 func (r *mutationResolver) Login(ctx context.Context, input model.Login) (string, error) {
 	var user users.User
 	user.Username = input.Username
