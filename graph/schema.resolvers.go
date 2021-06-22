@@ -8,13 +8,13 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/glyphack/graphlq-golang/graph/generated"
-	"github.com/glyphack/graphlq-golang/graph/model"
-	"github.com/glyphack/graphlq-golang/internal/auth"
-	"github.com/glyphack/graphlq-golang/internal/links"
-	"github.com/glyphack/graphlq-golang/internal/tasks"
-	"github.com/glyphack/graphlq-golang/internal/users"
-	"github.com/glyphack/graphlq-golang/pkg/jwt"
+	"github.com/Sandybaby07/graphql-golang-practice/graph/generated"
+	"github.com/Sandybaby07/graphql-golang-practice/graph/model"
+	"github.com/Sandybaby07/graphql-golang-practice/internal/auth"
+	"github.com/Sandybaby07/graphql-golang-practice/internal/links"
+	"github.com/Sandybaby07/graphql-golang-practice/internal/tasks"
+	"github.com/Sandybaby07/graphql-golang-practice/internal/users"
+	"github.com/Sandybaby07/graphql-golang-practice/pkg/jwt"
 )
 
 func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*model.Link, error) {

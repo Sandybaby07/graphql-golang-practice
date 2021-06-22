@@ -12,7 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/glyphack/graphlq-golang/graph/model"
+	"github.com/Sandybaby07/graphql-golang-practice/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -483,7 +483,7 @@ func (ec *executionContext) field_Mutation_createLink_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 model.NewLink
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewLink2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewLink(ctx, tmp)
+		arg0, err = ec.unmarshalNNewLink2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐNewLink(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -497,7 +497,7 @@ func (ec *executionContext) field_Mutation_createTask_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 model.NewTask
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewTask(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐNewTask(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -511,7 +511,7 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 model.NewUser
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewUser(ctx, tmp)
+		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐNewUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -525,7 +525,7 @@ func (ec *executionContext) field_Mutation_deleteTask_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 model.DeleteTask
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNDeleteTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐDeleteTask(ctx, tmp)
+		arg0, err = ec.unmarshalNDeleteTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐDeleteTask(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -539,7 +539,7 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	args := map[string]interface{}{}
 	var arg0 model.Login
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLogin(ctx, tmp)
+		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLogin(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -553,7 +553,7 @@ func (ec *executionContext) field_Mutation_modifyTask_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 model.ModifyTask
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNModifyTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐModifyTask(ctx, tmp)
+		arg0, err = ec.unmarshalNModifyTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐModifyTask(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -567,7 +567,7 @@ func (ec *executionContext) field_Mutation_refreshToken_args(ctx context.Context
 	args := map[string]interface{}{}
 	var arg0 model.RefreshTokenInput
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNRefreshTokenInput2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRefreshTokenInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRefreshTokenInput2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐRefreshTokenInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -759,7 +759,7 @@ func (ec *executionContext) _Link_user(ctx context.Context, field graphql.Collec
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createLink(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -800,7 +800,7 @@ func (ec *executionContext) _Mutation_createLink(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Link)
 	fc.Result = res
-	return ec.marshalNLink2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLink(ctx, field.Selections, res)
+	return ec.marshalNLink2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLink(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createTask(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -841,7 +841,7 @@ func (ec *executionContext) _Mutation_createTask(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Task)
 	fc.Result = res
-	return ec.marshalNTask2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTask(ctx, field.Selections, res)
+	return ec.marshalNTask2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐTask(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1080,7 +1080,7 @@ func (ec *executionContext) _Query_links(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*model.Link)
 	fc.Result = res
-	return ec.marshalNLink2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLinkᚄ(ctx, field.Selections, res)
+	return ec.marshalNLink2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLinkᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_Task(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1114,7 +1114,7 @@ func (ec *executionContext) _Query_Task(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.([]*model.Task)
 	fc.Result = res
-	return ec.marshalNTask2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTaskᚄ(ctx, field.Selections, res)
+	return ec.marshalNTask2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐTaskᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_User(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1148,7 +1148,7 @@ func (ec *executionContext) _Query_User(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.([]*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_Staff(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1182,7 +1182,7 @@ func (ec *executionContext) _Query_Staff(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1387,7 +1387,7 @@ func (ec *executionContext) _Task_creater(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Task_editor(ctx context.Context, field graphql.CollectedField, obj *model.Task) (ret graphql.Marshaler) {
@@ -1421,7 +1421,7 @@ func (ec *executionContext) _Task_editor(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Task_status(ctx context.Context, field graphql.CollectedField, obj *model.Task) (ret graphql.Marshaler) {
@@ -1455,7 +1455,7 @@ func (ec *executionContext) _Task_status(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(model.Status)
 	fc.Result = res
-	return ec.marshalNStatus2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐStatus(ctx, field.Selections, res)
+	return ec.marshalNStatus2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐStatus(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
@@ -1557,7 +1557,7 @@ func (ec *executionContext) _User_role(ctx context.Context, field graphql.Collec
 	}
 	res := resTmp.(model.Role)
 	fc.Result = res
-	return ec.marshalNRole2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRole(ctx, field.Selections, res)
+	return ec.marshalNRole2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐRole(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -2701,7 +2701,7 @@ func (ec *executionContext) unmarshalInputModifyTask(ctx context.Context, obj in
 			}
 		case "status":
 			var err error
-			it.Status, err = ec.unmarshalNStatus2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐStatus(ctx, v)
+			it.Status, err = ec.unmarshalNStatus2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐStatus(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -2779,7 +2779,7 @@ func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj inter
 			}
 		case "role":
 			var err error
-			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRole(ctx, v)
+			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐRole(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3352,7 +3352,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNDeleteTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐDeleteTask(ctx context.Context, v interface{}) (model.DeleteTask, error) {
+func (ec *executionContext) unmarshalNDeleteTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐDeleteTask(ctx context.Context, v interface{}) (model.DeleteTask, error) {
 	return ec.unmarshalInputDeleteTask(ctx, v)
 }
 
@@ -3370,11 +3370,11 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNLink2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLink(ctx context.Context, sel ast.SelectionSet, v model.Link) graphql.Marshaler {
+func (ec *executionContext) marshalNLink2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLink(ctx context.Context, sel ast.SelectionSet, v model.Link) graphql.Marshaler {
 	return ec._Link(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNLink2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLinkᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Link) graphql.Marshaler {
+func (ec *executionContext) marshalNLink2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLinkᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Link) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3398,7 +3398,7 @@ func (ec *executionContext) marshalNLink2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlq
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNLink2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLink(ctx, sel, v[i])
+			ret[i] = ec.marshalNLink2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLink(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3411,7 +3411,7 @@ func (ec *executionContext) marshalNLink2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlq
 	return ret
 }
 
-func (ec *executionContext) marshalNLink2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLink(ctx context.Context, sel ast.SelectionSet, v *model.Link) graphql.Marshaler {
+func (ec *executionContext) marshalNLink2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLink(ctx context.Context, sel ast.SelectionSet, v *model.Link) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -3421,45 +3421,45 @@ func (ec *executionContext) marshalNLink2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑ
 	return ec._Link(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
+func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
 	return ec.unmarshalInputLogin(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNModifyTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐModifyTask(ctx context.Context, v interface{}) (model.ModifyTask, error) {
+func (ec *executionContext) unmarshalNModifyTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐModifyTask(ctx context.Context, v interface{}) (model.ModifyTask, error) {
 	return ec.unmarshalInputModifyTask(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNNewLink2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewLink(ctx context.Context, v interface{}) (model.NewLink, error) {
+func (ec *executionContext) unmarshalNNewLink2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐNewLink(ctx context.Context, v interface{}) (model.NewLink, error) {
 	return ec.unmarshalInputNewLink(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNNewTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewTask(ctx context.Context, v interface{}) (model.NewTask, error) {
+func (ec *executionContext) unmarshalNNewTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐNewTask(ctx context.Context, v interface{}) (model.NewTask, error) {
 	return ec.unmarshalInputNewTask(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
+func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
 	return ec.unmarshalInputNewUser(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRefreshTokenInput(ctx context.Context, v interface{}) (model.RefreshTokenInput, error) {
+func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐRefreshTokenInput(ctx context.Context, v interface{}) (model.RefreshTokenInput, error) {
 	return ec.unmarshalInputRefreshTokenInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNRole2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRole(ctx context.Context, v interface{}) (model.Role, error) {
+func (ec *executionContext) unmarshalNRole2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐRole(ctx context.Context, v interface{}) (model.Role, error) {
 	var res model.Role
 	return res, res.UnmarshalGQL(v)
 }
 
-func (ec *executionContext) marshalNRole2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐRole(ctx context.Context, sel ast.SelectionSet, v model.Role) graphql.Marshaler {
+func (ec *executionContext) marshalNRole2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐRole(ctx context.Context, sel ast.SelectionSet, v model.Role) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) unmarshalNStatus2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐStatus(ctx context.Context, v interface{}) (model.Status, error) {
+func (ec *executionContext) unmarshalNStatus2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐStatus(ctx context.Context, v interface{}) (model.Status, error) {
 	var res model.Status
 	return res, res.UnmarshalGQL(v)
 }
 
-func (ec *executionContext) marshalNStatus2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐStatus(ctx context.Context, sel ast.SelectionSet, v model.Status) graphql.Marshaler {
+func (ec *executionContext) marshalNStatus2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐStatus(ctx context.Context, sel ast.SelectionSet, v model.Status) graphql.Marshaler {
 	return v
 }
 
@@ -3477,11 +3477,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNTask2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTask(ctx context.Context, sel ast.SelectionSet, v model.Task) graphql.Marshaler {
+func (ec *executionContext) marshalNTask2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐTask(ctx context.Context, sel ast.SelectionSet, v model.Task) graphql.Marshaler {
 	return ec._Task(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTask2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTaskᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Task) graphql.Marshaler {
+func (ec *executionContext) marshalNTask2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐTaskᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Task) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3505,7 +3505,7 @@ func (ec *executionContext) marshalNTask2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlq
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTask2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTask(ctx, sel, v[i])
+			ret[i] = ec.marshalNTask2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐTask(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3518,7 +3518,7 @@ func (ec *executionContext) marshalNTask2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlq
 	return ret
 }
 
-func (ec *executionContext) marshalNTask2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐTask(ctx context.Context, sel ast.SelectionSet, v *model.Task) graphql.Marshaler {
+func (ec *executionContext) marshalNTask2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐTask(ctx context.Context, sel ast.SelectionSet, v *model.Task) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -3528,11 +3528,11 @@ func (ec *executionContext) marshalNTask2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑ
 	return ec._Task(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3556,7 +3556,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlq
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3569,7 +3569,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋglyphackᚋgraphlq
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋglyphackᚋgraphlqᚑgolangᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋSandybaby07ᚋgraphqlᚑgolangᚑpracticeᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")

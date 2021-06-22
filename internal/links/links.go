@@ -1,9 +1,10 @@
 package links
 
 import (
-	database "github.com/glyphack/graphlq-golang/internal/pkg/db/mysql"
-	"github.com/glyphack/graphlq-golang/internal/users"
 	"log"
+
+	database "github.com/Sandybaby07/graphql-golang-practice/internal/pkg/db/mysql"
+	"github.com/Sandybaby07/graphql-golang-practice/internal/users"
 )
 
 // #1

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 
-	database "github.com/glyphack/graphlq-golang/internal/pkg/db/mysql"
+	database "github.com/Sandybaby07/graphql-golang-practice/internal/pkg/db/mysql"
 	"golang.org/x/crypto/bcrypt"
 )
 

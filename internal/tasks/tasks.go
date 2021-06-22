@@ -3,8 +3,8 @@ package tasks
 import (
 	"log"
 
-	database "github.com/glyphack/graphlq-golang/internal/pkg/db/mysql"
-	"github.com/glyphack/graphlq-golang/internal/users"
+	database "github.com/Sandybaby07/graphql-golang-practice/internal/pkg/db/mysql"
+	"github.com/Sandybaby07/graphql-golang-practice/internal/users"
 )
 
 // #1
@@ -21,19 +21,19 @@ type Status struct {
 	Status string
 }
 
-//#2
+// Save new task
 func (task Task) Save() int64 {
-	//#3
+	// insert new task sql
 	stmt, err := database.Db.Prepare("INSERT INTO Tasks(Title,Content,CreaterID,EditorID,Status) VALUES(?,?,?,?,?)")
 	if err != nil {
 		log.Fatal(err)
 	}
-	//#4
+	// Execute insert
 	res, err := stmt.Exec(task.Title, task.Content, task.Creater.ID, task.Editor.ID, task.Status.Status)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//#5
+	// Result
 	id, err := res.LastInsertId()
 	if err != nil {
 		log.Fatal("Error:", err.Error())
@@ -42,7 +42,9 @@ func (task Task) Save() int64 {
 	return id
 }
 
+// Get all tasks
 func GetAll() []Task {
+	// Query all tasks sql
 	stmt, err := database.Db.Prepare("select T.id, T.title, T.Content, T.CreaterID, T.EditorID, T.Status, U.Username from Tasks T inner join Users U on T.CreaterID = U.ID")
 	if err != nil {
 		log.Fatal(err)
@@ -85,7 +87,7 @@ func GetAll() []Task {
 	return tasks
 }
 
-// delete
+// Delete
 func (task Task) Delete() int64 {
 	// delete sql DELETE FROM Tasks WHERE `ID`=?
 	stmt, err := database.Db.Prepare("DELETE FROM Tasks WHERE `ID` = ? and `CreaterID` = ?")
@@ -93,12 +95,12 @@ func (task Task) Delete() int64 {
 		log.Fatal(err)
 	}
 	log.Printf(task.ID)
-	//#4
+	// Execute delete
 	res, err := stmt.Exec(task.ID, task.Creater.ID)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//#5
+	// Result
 	id, err := res.RowsAffected()
 	if err != nil {
 		log.Fatal("Error:", err.Error())
@@ -108,22 +110,23 @@ func (task Task) Delete() int64 {
 	} else {
 		log.Print("Row deleted!")
 	}
+	// Return deleted row quentity
 	return id
 }
 
-// modify
+// Modify
 func (task Task) Modify() int64 {
-	// update sql
+	// Update sql
 	stmt, err := database.Db.Prepare("UPDATE Tasks SET `Title` = ?,`content` = ?, `EditorID` = ?, `Status` = ? WHERE `ID` = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
-	//#4
+	// Execute update
 	res, err := stmt.Exec(task.Title, task.Content, task.Editor.ID, task.Status.Status, task.ID)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//#5
+	// Result
 	id, err := res.RowsAffected()
 	if err != nil {
 		log.Fatal("Error:", err.Error())
@@ -133,5 +136,6 @@ func (task Task) Modify() int64 {
 	} else {
 		log.Print("Row modify")
 	}
+	// Return modified row quentity
 	return id
 }
