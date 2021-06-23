@@ -239,7 +239,7 @@ type TaskInfo {
 }
 ```
 
-Auth
+### Auth
 * directive
 >根據身份別來限制使用者可以存取的欄位
 ```javascript=
