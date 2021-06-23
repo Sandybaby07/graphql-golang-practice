@@ -177,3 +177,64 @@ enum Role {
     EDITOR
 }
 ```
+---
+### Offset vs Cursored-based pagination
+* Offset
+    * pros
+        * 計算資料的總數量
+        * 目前頁數或可以跳到指定的頁數
+    * cons
+        * 在資料量大的時速度慢，會造成資料庫的負擔
+        * 無法處理在換頁時被刪除或是新增的資料
+
+* Cursored-based
+    * pros
+        * 可以明確指定資料的範圍從哪開始，資料量大時可以減少 database 的負擔
+        * db 被頻繁寫入資料時，可以解決排序問題
+    * cons
+        * 沒有「總和」和「頁數」的概念
+        * 基於一個「唯一」或是「有序」
+     
+* Offset Pagination
+>用 OFFSET（資料的起起始點） + LIMIT （偏移量 每次取得的數量）去取得資料，在 offset 數量後的資料取得 limit 數量的資料
+```
+type Task {
+  id: ID!
+  title: String
+  body: String
+  "Unix timestamp milliseconds"
+  createdAt: String
+}
+
+Query {
+  tasks(offset: Int = 0, limit: Int = 100)
+}
+```
+* Cursored-based Pagination 
+>用cursor指定明確的起始點來回傳資料，從 cursor 這筆資料後取得 limit 數量的資料
+```
+type Query {
+  tasks(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): PostConnection!
+}
+
+type TaskConnection {
+  edges: [PostEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskEdge {
+  cursor: String!
+  node: Post!
+}
+
+type TaskInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  totalPageCount: Int
+}
+```
