@@ -206,7 +206,7 @@ type Task {
   createdAt: String
 }
 
-Query {
+type Query {
   tasks(offset: Int = 0, limit: Int = 100)
 }
 ```
@@ -236,5 +236,35 @@ type TaskInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
   totalPageCount: Int
+}
+```
+
+Auth
+* directive
+>根據身份別來限制使用者可以存取的欄位
+```javascript=
+
+type Task {
+    id: ID!
+    title: String! @hasRole(role: EDITOR) # only the EDITOR can see the task
+    content: String! @hasRole(role: EDITOR) # only the EDITOR can see the task
+    creater: User!
+    editor: User!
+    status: Status!
+}
+
+type Query {
+    links: [Link!]!
+    Task: [Task!]!
+    User: [User!]!
+    Staff: [User!]! @hasRole(role: ADMIN) # only the ADMIN can see his staff
+}
+
+"Prevents access to a field if the user doesnt have the matching role"
+directive @hasRole(role: Role!) on FIELD_DEFINITION
+enum Role {
+    ADMIN
+    STAFF
+    EDITOR
 }
 ```
