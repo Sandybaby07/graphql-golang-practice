@@ -238,7 +238,7 @@ type TaskInfo {
   totalPageCount: Int
 }
 ```
-
+---
 ### Auth
 * directive
 >根據身份別來限制使用者可以存取的欄位
@@ -254,7 +254,6 @@ type Task {
 }
 
 type Query {
-    links: [Link!]!
     Task: [Task!]!
     User: [User!]!
     Staff: [User!]! @hasRole(role: ADMIN) # only the ADMIN can see his staff
