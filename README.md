@@ -196,7 +196,7 @@ enum Role {
         * 基於一個「唯一」或是「有序」
      
 * Offset Pagination
->用 OFFSET（資料的起起始點） + LIMIT （偏移量 每次取得的數量）去取得資料，在 offset 數量後的資料取得 limit 數量的資料
+>用 offset (資料的起起始點) + limit (偏移量 每次取得的數量)去取得資料，在 offset 數量後的資料取得 limit 數量的資料
 ```
 type Task {
   id: ID!
@@ -211,7 +211,7 @@ Query {
 }
 ```
 * Cursored-based Pagination 
->用cursor指定明確的起始點來回傳資料，從 cursor 這筆資料後取得 limit 數量的資料
+>用 cursor 指定明確的起始點來回傳資料，從 cursor 這筆資料後取得 limit 數量的資料
 ```
 type Query {
   tasks(
